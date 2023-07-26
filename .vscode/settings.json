@@ -1,0 +1,31 @@
+{
+    "C_Cpp.errorSquiggles": "disabled",
+    "files.associations": {
+        "sdkconfig": "cpp",
+        "esp_netif.h": "c",
+        "esp_event.h": "c",
+        "nvs_flash.h": "c",
+        "gpio_types.h": "c",
+        "lib_gpio.h": "c",
+        "freertos.h": "c",
+        "random": "c",
+        "*.tcc": "c",
+        "ratio": "c",
+        "system_error": "c",
+        "array": "c",
+        "functional": "c",
+        "regex": "c",
+        "tuple": "c",
+        "type_traits": "c",
+        "utility": "c",
+        "lib_timer.h": "c",
+        "stdio.h": "c",
+        "esp_sleep.h": "c"
+    },
+    "C_Cpp.default.compilerPath": "/home/micls/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/xtensa-esp32-elf-g++",
+    "C_Cpp.codeAnalysis.clangTidy.checks.disabled": [
+        "clang-diagnostic-error",
+        "clang-diagnostic-error",
+        "clang-diagnostic-error"
+    ]
+}
