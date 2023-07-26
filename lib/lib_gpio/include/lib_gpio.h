@@ -18,11 +18,6 @@
 #include "driver/gpio.h"
 #include "esp_system.h"
 
-struct lib_gpio_init_struct
-{
-    uint64_t gpio_bit_mask
-};
-
 void lib_gpio_init(uint64_t gpio_bit_mask, gpio_mode_t mode, gpio_pull_mode_t pull_mode, gpio_int_type_t intr_mode);
 
 void lib_gpio_output_init(gpio_num_t gpio_pin);
