@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef LIB_GPIO_H
-#define LIB_GPIO_H
+#ifndef LIB_BUTTON_H
+#define LIB_BUTTON_H
 
 #include <stdint.h>
 
