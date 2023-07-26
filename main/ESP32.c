@@ -3,6 +3,7 @@
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
+#include "freertos/queue.h"
 #include "freertos/event_groups.h"
 #include "freertos/timers.h"
 #include "driver/gpio.h"
@@ -20,6 +21,7 @@
 #define CONFIG_BLINK_PERIOD 1000
 
 uint8_t s_led_state = 0;
+QueueHandle_t queueTest = NULL;
 
 void blink_led(void *)
 {
@@ -45,7 +47,6 @@ void app_main(void)
     ESP_ERROR_CHECK(gpio_set_direction(BLINK_GPIO, GPIO_MODE_OUTPUT));
 
     TaskHandle_t ledHandle = NULL;
-    TaskHandle_t gpioTask = NULL;
 
     TaskHandle_t buttonHandle = NULL;
 

@@ -14,8 +14,10 @@
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
+#include "string.h"
 
 #include "./../../../lib/lib_button/include/lib_button.h"
+#include "./../../../lib/lib_uart/include/lib_uart.h"
 
 void app_button(void *);
 

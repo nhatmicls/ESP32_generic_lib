@@ -20,7 +20,9 @@
         "utility": "c",
         "lib_timer.h": "c",
         "stdio.h": "c",
-        "esp_sleep.h": "c"
+        "esp_sleep.h": "c",
+        "task.h": "c",
+        "app_gpio.h": "c"
     },
     "C_Cpp.default.compilerPath": "/home/micls/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/xtensa-esp32-elf-g++",
     "C_Cpp.codeAnalysis.clangTidy.checks.disabled": [
