@@ -262,7 +262,10 @@ void lib_button_debouncing_task_handler(void *arg)
         if (xQueueReceive(button_event_debouncing_queue, &buttonPin, portMAX_DELAY) == pdTRUE &&
             xQueueReceive(button_event_time_queue, &systemTickTimer, portMAX_DELAY) == pdTRUE)
         {
+
+#ifdef DEBUG_BUTTON
             printf("GPIO: %d, time: %lld\n", (int)buttonPin, systemTickTimer);
+#endif
 
             struct button_callback_list *current_button = first_button_handle;
 
@@ -271,10 +274,17 @@ void lib_button_debouncing_task_handler(void *arg)
                 uint64_t deltaTime = systemTickTimer - current_button->last_button_event_time;
                 if (current_button->gpio_pin == buttonPin)
                 {
+
+#ifdef DEBUG_BUTTON
                     printf("delta time: %lld, stage: %d\n", deltaTime, current_button->last_button_event);
+#endif
                     if (current_button->last_button_event == PRESSING && deltaTime > BUTTON_PRESS_TIME)
                     {
+
+#ifdef DEBUG_BUTTON
                         printf("PRESSING\n");
+#endif
+
                         if (deltaTime > BUTTON_LONG_HOLDING_TIME)
                         {
                             current_button->last_button_event = LONG_HOLD;
@@ -290,7 +300,9 @@ void lib_button_debouncing_task_handler(void *arg)
                     }
                     else if (current_button->last_button_event == RELEASING && deltaTime > BUTTON_PRESS_TIME)
                     {
+#ifdef DEBUG_BUTTON
                         printf("RELEASING\n");
+#endif
                         current_button->last_button_event = PRESSING;
                     }
                     current_button->last_button_event_time = systemTickTimer;
