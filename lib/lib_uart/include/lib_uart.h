@@ -15,10 +15,16 @@
 #include <stdio.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
+#include "freertos/queue.h"
+#include "freertos/timers.h"
+
 #include "driver/uart.h"
 #include "driver/gpio.h"
+
 #include "sdkconfig.h"
 #include "esp_log.h"
+
+#include "string.h"
 
 #define BUF_SIZE 1024
 
@@ -30,9 +36,12 @@ struct uart_handle_t *lib_uart_init(uart_port_t uart_num,
                                     uart_parity_t parity,
                                     uart_stop_bits_t stop_bits,
                                     uart_hw_flowcontrol_t flow_ctrl,
-                                    uint8_t txPort,
-                                    uint8_t rxPort,
-                                    uint8_t rtsPort,
-                                    uint8_t ctsPort);
+                                    int8_t txPort,
+                                    int8_t rxPort,
+                                    int8_t rtsPort,
+                                    int8_t ctsPort);
+
+void send_uart(uart_port_t uart_num, char *send_data);
+uint8_t recv_uart(uart_port_t uart_num, uint8_t timeout);
 
 #endif
