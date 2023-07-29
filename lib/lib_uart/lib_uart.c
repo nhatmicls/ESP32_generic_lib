@@ -28,6 +28,8 @@ struct uart_handle_t *lib_uart_init(uart_port_t uart_num,
     // init uart handle
     uart_handle->next_uart_handle = NULL;
     uart_handle->uart_num = uart_num;
+    uart_handle->uartQueue = NULL;
+    uart_handle->xMutexUART = NULL;
 
     if (last_uart_handle_pointer != NULL)
     {
@@ -54,14 +56,14 @@ struct uart_handle_t *lib_uart_init(uart_port_t uart_num,
         .parity = parity,
         .stop_bits = stop_bits,
         .flow_ctrl = flow_ctrl,
-        .rx_flow_ctrl_thresh = 122,
+        .source_clk = UART_SCLK_DEFAULT,
     };
 
     ESP_ERROR_CHECK(uart_param_config(uart_num, &uart_config));
 
     int intr_alloc_flags = 0;
 
-    ESP_ERROR_CHECK(uart_driver_install(uart_num, BUF_SIZE * 2, BUF_SIZE * 2, 20, &uart_handle->uartQueue, intr_alloc_flags));
+    ESP_ERROR_CHECK(uart_driver_install(uart_num, BUF_SIZE * 2, BUF_SIZE * 2, 20, &(uart_handle->uartQueue), intr_alloc_flags));
     ESP_ERROR_CHECK(uart_param_config(uart_num, &uart_config));
     ESP_ERROR_CHECK(uart_set_pin(uart_num, txPort, rxPort, rtsPort, ctsPort));
 
@@ -78,6 +80,7 @@ void send_uart(uart_port_t uart_num, char *send_data)
         {
             if (xSemaphoreTake(uart_handle->xMutexUART, portMAX_DELAY))
             {
+                printf("send\n");
                 uart_write_bytes(uart_num, (const char *)send_data, strlen(send_data));
                 xSemaphoreGive(uart_handle->xMutexUART);
             }
@@ -87,23 +90,11 @@ void send_uart(uart_port_t uart_num, char *send_data)
     } while (uart_handle->next_uart_handle != NULL);
 }
 
-uint8_t recv_uart(uart_port_t uart_num, uint8_t timeout)
+uint16_t recv_uart(uart_port_t uart_num, uint8_t timeout, uint8_t *data, uint16_t size)
 {
-    uint8_t data[BUF_SIZE];
-    int rxBytes = 0;
+    memset(data, 0, size);
 
-    memset(data, 0, BUF_SIZE);
+    uint16_t length = uart_read_bytes(uart_num, data, size, timeout);
 
-    if (timeout > 10)
-    {
-        rxBytes = uart_read_bytes(uart_num, data, BUF_SIZE, pdMS_TO_TICKS(timeout));
-    }
-    else
-    {
-        rxBytes = uart_read_bytes(uart_num, data, BUF_SIZE, portMAX_DELAY);
-    }
-
-    if (rxBytes > 0)
-    {
-    }
+    return length;
 }

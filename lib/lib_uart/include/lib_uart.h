@@ -42,6 +42,6 @@ struct uart_handle_t *lib_uart_init(uart_port_t uart_num,
                                     int8_t ctsPort);
 
 void send_uart(uart_port_t uart_num, char *send_data);
-uint8_t recv_uart(uart_port_t uart_num, uint8_t timeout);
+uint16_t recv_uart(uart_port_t uart_num, uint8_t timeout, uint8_t *data, uint16_t size);
 
 #endif
