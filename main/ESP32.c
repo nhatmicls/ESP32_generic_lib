@@ -15,6 +15,7 @@
 #include "nvs_flash.h"
 
 #include "./../components/app_gpio/include/app_gpio.h"
+#include "./../components/app_uart/include/app_uart.h"
 #include "./../components/app_button/include/app_button.h"
 
 #define BLINK_GPIO 2
@@ -47,13 +48,19 @@ void app_main(void)
     ESP_ERROR_CHECK(gpio_set_direction(BLINK_GPIO, GPIO_MODE_OUTPUT));
 
     TaskHandle_t ledHandle = NULL;
-
+    TaskHandle_t uartHandle = NULL;
+    TaskHandle_t uartIsrHandle = NULL;
     TaskHandle_t buttonHandle = NULL;
 
+    app_uart_init();
+
     xTaskCreate(blink_led, "Led_Task", 2048, NULL, 10, &ledHandle);
-    app_gpio();
+    // app_gpio();
 
     xTaskCreate(app_button, "Button_Task", 2048, NULL, tskIDLE_PRIORITY, &buttonHandle);
+    xTaskCreate(app_uart, "UART_Task", 4012, NULL, 15, &uartHandle);
+    // xTaskCreate(uart_isr_handle, "UART_ISR_Task", 2048, NULL, 9, &uartIsrHandle);
+
     while (1)
     {
         vTaskDelay(CONFIG_BLINK_PERIOD / portTICK_PERIOD_MS);
