@@ -38,10 +38,10 @@ struct button_callback_list *lib_button_init(gpio_num_t gpio_pin, button_pull_lo
     struct button_callback_list *button_callback = (struct button_callback_list *)malloc(sizeof(struct button_callback_list));
 
     // set init data for callback struct
-    button_callback->press_callback = NULL;
-    button_callback->short_press_callback = NULL;
-    button_callback->long_press_callback = NULL;
-    button_callback->next_button_callback = NULL;
+    button_callback->press_callback = NOP;
+    button_callback->short_press_callback = NOP;
+    button_callback->long_press_callback = NOP;
+    button_callback->next_button_callback = NOP;
 
     // set linked list for button
     if (last_button_callback_pointer != NULL)
@@ -250,6 +250,8 @@ void lib_button_ISR_task_handler(void *arg)
         }
         vTaskDelay(pdMS_TO_TICKS(10));
     }
+
+    vTaskDelete(NULL);
 }
 
 void lib_button_debouncing_task_handler(void *arg)
@@ -316,4 +318,6 @@ void lib_button_debouncing_task_handler(void *arg)
         }
         vTaskDelay(pdMS_TO_TICKS(10));
     }
+
+    vTaskDelete(NULL);
 }

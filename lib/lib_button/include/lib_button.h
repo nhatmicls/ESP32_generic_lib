@@ -24,6 +24,8 @@
 #include "freertos/timers.h"
 #include "esp_timer.h"
 
+#include "./../../lib_common_func/include/lib_common_func.h"
+
 // #define DEBUG_BUTTON
 
 #define BUTTON_MAX_QUEUE 20

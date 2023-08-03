@@ -25,7 +25,7 @@ void app_uart(void *arg)
 
     while (1)
     {
-        uint16_t length = recv_uart(UART_NUM_2, pdMS_TO_TICKS(1000), string_recv, RX_BUF_SIZE);
+        uint16_t length = recv_uart(UART_NUM_2, portMAX_DELAY, string_recv, RX_BUF_SIZE);
         if (length > 0)
         {
             printf("Data get: %s\n", string_recv);

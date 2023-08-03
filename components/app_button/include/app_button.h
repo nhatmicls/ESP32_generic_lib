@@ -16,8 +16,11 @@
 #include "freertos/task.h"
 #include "string.h"
 
+#include "./../../include/priority.h"
+
 #include "./../../../lib/lib_button/include/lib_button.h"
 #include "./../../../lib/lib_uart/include/lib_uart.h"
+#include "./../../../lib/lib_timer/include/lib_timer.h"
 
 void app_button(void *);
 

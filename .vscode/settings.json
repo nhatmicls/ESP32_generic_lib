@@ -30,7 +30,10 @@
         "complex": "c",
         "lib_uart.h": "c",
         "bitset": "c",
-        "initializer_list": "c"
+        "initializer_list": "c",
+        "lib_button.h": "c",
+        "lib_common_func.h": "c",
+        "stdint.h": "c"
     },
     "C_Cpp.default.compilerPath": "/home/micls/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/xtensa-esp32-elf-g++",
     "C_Cpp.codeAnalysis.clangTidy.checks.disabled": [
